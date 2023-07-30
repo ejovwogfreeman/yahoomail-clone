@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="favicon.png" type="image/x-icon" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700&family=Lexend+Deca&family=Raleway:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <title>Yahoo</title>
+    <style>
+      * {
+        margin: 0px;
+        padding: 0px;
+        box-sizing: border-box;
+      }
+
+      a {
+        text-decoration: none;
+        color: #188fff;
+      }
+
+      body {
+        font-family: "Raleway", sans-serif;
+      }
+
+      nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0px 4%;
+        height: 80px;
+      }
+      .container {
+        display: flex;
+        align-items: center;
+        padding: 30px 15%;
+      }
+      .container .left {
+        flex: 2;
+        margin-right: 20px;
+      }
+      .container .left h2 {
+        margin-bottom: 20px;
+      }
+      .container .left p {
+        font-size: 20px;
+      }
+      .container form {
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        text-align: center;
+        padding: 20px;
+        /* flex: 1; */
+        border-radius: 3px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .container form .input-wrapper {
+        position: relative;
+        height: 30px;
+      }
+
+      .go-up-text {
+        position: absolute;
+        font-size: 15px;
+        left: 0;
+        bottom: 5px;
+        color: rgba(0, 0, 0, 0.5);
+        z-index: -1;
+        /* transition: 0.5s ease-in-out; */
+      }
+      .go-up {
+        position: absolute;
+        font-size: 10px;
+        left: 0;
+        top: -10px;
+        color: black;
+        z-index: -1;
+        /* transition: 0.5s ease-in-out; */
+      }
+
+      .container form input {
+        width: 100%;
+        border: none;
+        outline: none;
+        background-color: transparent;
+        border-bottom: 1px solid #188fff;
+        height: 100%;
+      }
+
+      .next-btn {
+        width: 100%;
+        display: block;
+        background-color: #188fff;
+        color: white;
+        padding: 10px;
+        border-radius: 50px;
+        margin-top: 25px;
+      }
+      .container form button {
+        width: 100%;
+        display: block;
+        padding: 10px;
+        border-radius: 50px;
+        outline: none;
+        border: 1px solid #188fff;
+        color: #188fff;
+        font-weight: 500;
+        font-size: 18px;
+        margin-top: 80px;
+      }
+      .container .text {
+        margin: 60px;
+        margin-bottom: 70px;
+      }
+      .container .sign {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .container .sign span {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 20px;
+        background-color: red;
+      }
+      .container a {
+        font-size: 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <img src="logo.png" alt="" width="120px" />
+      <a href="">Help</a>
+    </nav>
+    <div class="container">
+      <div class="left">
+        <h2>Yahoo makes it easy to enjoy what matters most in your world.</h2>
+        <p>
+          Best in class Yahoo Mail, breaking local, national and global news,
+          finance, sports, music, movies and more. You get more out of the web,
+          you get more out of life
+        </p>
+      </div>
+      <form action="">
+        <img src="logo.png" alt="" width="100px" />
+        <div class="text">
+          <h3>Sign in to Yahoo Mail</h3>
+          <small>Using your Yahoo account</small>
+        </div>
+        <div class="input-wrapper">
+          <small id="up" class="go-up-text">Username, email or mobile</small>
+          <input type="text" id="username" />
+        </div>
+        <span class="next-btn">Next</span>
+        <div class="sign">
+          <span
+            ><input type="checkbox" name="" id="" />
+            <a href="">Stay signed in</a>
+          </span>
+          <a href="">Forgot username?</a>
+        </div>
+        <button>Create an account</button>
+      </form>
+    </div>
+  </body>
+  <script>
+    let username = document.getElementById("username");
+    let up = document.getElementById("up");
+    username.addEventListener("click", () => {
+      up.classList.remove("go-up-text");
+      up.classList.add("go-up");
+    });
+
+    document.addEventListener("click", (e) => {
+      if (e.target.id !== "username") {
+        console.log(e.target);
+        up.classList.remove("go-up");
+        up.classList.add("go-up-text");
+      }
+    });
+  </script>
+</html>
